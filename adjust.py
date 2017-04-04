@@ -62,6 +62,7 @@ valve = [
 
 currentValue = None
 def setBrightness(bri):
+    """输入亮度值，根据阈值设置显示器亮度"""
     global currentValue
     monitorValue = None
     for k,v in valve:

@@ -1,7 +1,8 @@
 import cv2
 import time
-
 import adjust
+# 使用摄像头捕获环境亮度，设置显示器亮度
+# 参考资料
 # http://blog.topspeedsnail.com/archives/2068
 # http://blog.csdn.net/donger_soft/article/details/39522599
 # http://docs.opencv.org/3.0-beta/modules/core/doc/operations_on_arrays.html?highlight=avg#CvScalar cvAvg(const CvArr* arr, const CvArr* mask)
