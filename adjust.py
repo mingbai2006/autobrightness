@@ -53,27 +53,35 @@ def set_vcp_feature(monitor, code, value):
     if not windll.dxva2.SetVCPFeature(HANDLE(monitor), BYTE(code), DWORD(value)):
         raise WinError()
 
-valve = [
-    (55, 0), #估计值
-    (75, 8), #估计值
-    (133, 20), # 准确值
-    (170, 25),
+thresholdLevel = [
+    (30, 8, 30), #估计值
+    (55, 12, 40), #估计值
+    (75, 12, 40), #估计值
+    (133, 18, 50), # 准确值
+    (170, 20, 50),
+    (250, 25, 50)
 ]
 
+BRIGHTNESS = 0x10
+CONTRAST=  0x12
+
 currentValue = None
-def setBrightness(bri):
+
+def setBrightness(envBrightness):
     """输入亮度值，根据阈值设置显示器亮度"""
     global currentValue
-    monitorValue = None
-    for k,v in valve:
-        if bri < k:
-            monitorValue = v
+    newValue = None
+    for k, b, c in thresholdLevel:
+        if envBrightness < k:
+            newValue = (b, c)
             break
-    if monitorValue == None:
-        monitorValue = valve[len(valve)-1][1]
+    if newValue == None:
+        last = thresholdLevel[len(thresholdLevel) - 1]
+        newValue = (last[1], last[2])
 
-    if currentValue != monitorValue:
-        currentValue = monitorValue
+    if currentValue != newValue:
+        currentValue = newValue
         for handle in _iter_physical_monitors():
-            print('Brightness set to: %s' % monitorValue)
-            set_vcp_feature(handle, 0x10, monitorValue)
+            print('Monitor set: Brightness %s, Contrast %s' % (newValue[0], newValue[1]))
+            set_vcp_feature(handle, BRIGHTNESS, newValue[0])
+            set_vcp_feature(handle, CONTRAST, newValue[1])

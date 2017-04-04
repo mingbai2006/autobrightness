@@ -26,7 +26,7 @@ while (True):
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
-    time.sleep(5)
+    time.sleep(3)
 
 # 释放VideoCapture对象
 cap.release()
