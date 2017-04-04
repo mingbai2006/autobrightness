@@ -1,3 +1,5 @@
+# 使用windows monitor API控制显示器参数
+
 from ctypes import windll, byref, Structure, WinError, POINTER, WINFUNCTYPE
 from ctypes.wintypes import BOOL, HMONITOR, HDC, RECT, LPARAM, DWORD, BYTE, WCHAR, HANDLE
 
@@ -51,7 +53,26 @@ def set_vcp_feature(monitor, code, value):
     if not windll.dxva2.SetVCPFeature(HANDLE(monitor), BYTE(code), DWORD(value)):
         raise WinError()
 
+valve = [
+    (55, 0), #估计值
+    (75, 8), #估计值
+    (133, 20), # 准确值
+    (170, 30),
+]
 
-# Switch to SOFT-OFF, wait for the user to press return and then back to ON
-for handle in _iter_physical_monitors():
-    set_vcp_feature(handle, 0x10, 0x1e)
+currentValue = None
+def setBrightness(bri):
+    global currentValue
+    monitorValue = None
+    for k,v in valve:
+        if bri < k:
+            monitorValue = v
+            break
+    if monitorValue == None:
+        monitorValue = valve[len(valve)-1][1]
+
+    if currentValue != monitorValue:
+        currentValue = monitorValue
+        for handle in _iter_physical_monitors():
+            print('Brightness set to: %s' % monitorValue)
+            set_vcp_feature(handle, 0x10, monitorValue)
