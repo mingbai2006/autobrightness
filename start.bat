@@ -1,1 +1,1 @@
-python cap.py
+python sensor.py

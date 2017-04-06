@@ -54,11 +54,8 @@ def set_vcp_feature(monitor, code, value):
         raise WinError()
 
 thresholdLevel = [
-    (30, 8, 30), #估计值
-    (55, 12, 40), #估计值
-    (75, 12, 40), #估计值
-    (133, 18, 50), # 准确值
-    (170, 20, 50),
+    (30, 8, 35), #估计值
+    (170, 15, 50),
     (250, 25, 50)
 ]
 
@@ -67,18 +64,34 @@ CONTRAST=  0x12
 
 currentValue = None
 
-def setBrightness(envBrightness):
+def setBrightness(envLx):
     """输入亮度值，根据阈值设置显示器亮度"""
     global currentValue
     newValue = None
     for k, b, c in thresholdLevel:
-        if envBrightness < k:
+        if envLx < k:
             newValue = (b, c)
             break
     if newValue == None:
         last = thresholdLevel[len(thresholdLevel) - 1]
         newValue = (last[1], last[2])
 
+    if currentValue != newValue:
+        currentValue = newValue
+        for handle in _iter_physical_monitors():
+            print('Monitor set: Brightness %s, Contrast %s' % (newValue[0], newValue[1]))
+            set_vcp_feature(handle, BRIGHTNESS, newValue[0])
+            set_vcp_feature(handle, CONTRAST, newValue[1])
+
+def setMonitor(envLx):
+    """输入亮度值，根据阈值设置显示器亮度"""
+    bri = envLx
+    if envLx < 5:
+        contrast = 30
+    else:
+        contrast = 50
+    newValue = (bri, contrast)
+    global currentValue
     if currentValue != newValue:
         currentValue = newValue
         for handle in _iter_physical_monitors():
