@@ -84,7 +84,9 @@ def setBrightness(envLx):
             set_vcp_feature(handle, CONTRAST, newValue[1])
 
 def setMonitor(envLx):
-    """输入亮度值，根据阈值设置显示器亮度"""
+    """输入亮度值，根据阈值设置显示器亮度
+    y = (x-a)^b
+    """
     bri = envLx
     if envLx < 5:
         contrast = 30
