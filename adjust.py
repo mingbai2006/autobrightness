@@ -2,6 +2,7 @@
 
 from ctypes import windll, byref, Structure, WinError, POINTER, WINFUNCTYPE
 from ctypes.wintypes import BOOL, HMONITOR, HDC, RECT, LPARAM, DWORD, BYTE, WCHAR, HANDLE
+import math
 
 _MONITORENUMPROC = WINFUNCTYPE(BOOL, HMONITOR, HDC, POINTER(RECT), LPARAM)
 
@@ -85,11 +86,21 @@ def setBrightness(envLx):
 
 def setMonitor(envLx):
     """输入亮度值，根据阈值设置显示器亮度
-    y = (x-a)^b
+    119 => 40
+    2 => 2
+    bri^b = (envLx+a)
     """
-    bri = envLx
+    # a = 0.67
+    a = 0
+    b = 1.31 # b越小，亮度相对越高
+    bri = math.pow((envLx+a), (1 / b))
+    bri = math.ceil(bri)
+    # if envLx - a < 0:
+    #     bri = 0
+    # else:
+    #     bri = envLx - a
     if envLx < 5:
-        contrast = 30
+        contrast = 35
     else:
         contrast = 50
     newValue = (bri, contrast)
