@@ -96,7 +96,7 @@ def setMonitor(envLx):
         b = 1.55
         bri = math.pow((envLx + a), (1 / b))
     else:
-        b = 1.4
+        b = 1.2
         bri = math.pow((envLx + a), (1 / b))
     bri = math.ceil(bri)
     if envLx < 5:
