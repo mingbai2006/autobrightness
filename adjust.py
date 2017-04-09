@@ -90,15 +90,15 @@ def setMonitor(envLx):
     2 => 2
     bri^b = (envLx+a)
     """
-    # a = 0.67
     a = 0
-    b = 1.45 # b越小，亮度相对越高
-    bri = math.pow((envLx+a), (1 / b))
+    # b越小，亮度相对越高
+    if envLx > 100:
+        b = 1.55
+        bri = math.pow((envLx + a), (1 / b))
+    else:
+        b = 1.4
+        bri = math.pow((envLx + a), (1 / b))
     bri = math.ceil(bri)
-    # if envLx - a < 0:
-    #     bri = 0
-    # else:
-    #     bri = envLx - a
     if envLx < 5:
         contrast = 35
     else:
