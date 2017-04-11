@@ -100,7 +100,7 @@ def setMonitor(envLx):
         bri = math.pow((envLx + a), (1 / b))
     bri = math.ceil(bri)
     if envLx < 5:
-        contrast = 35
+        contrast = 40
     else:
         contrast = 50
     newValue = (bri, contrast)
