@@ -88,16 +88,12 @@ def setMonitor(envLx):
     """输入亮度值，根据阈值设置显示器亮度
     119 => 40
     2 => 2
-    bri^b = (envLx+a)
+    bri^b = envLx * a
     """
-    a = 0
     # b越小，亮度相对越高
-    if envLx > 100:
-        b = 1.55
-        bri = math.pow((envLx + a), (1 / b))
-    else:
-        b = 1.2
-        bri = math.pow((envLx + a), (1 / b))
+    a = 1
+    b = 1.4
+    bri = math.pow((envLx * a), (1 / b))
     bri = math.ceil(bri)
     if envLx < 5:
         contrast = 40
