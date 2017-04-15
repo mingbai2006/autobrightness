@@ -92,7 +92,7 @@ def setMonitor(envLx):
     """
     # b越小，亮度相对越高
     a = 1
-    b = 1.4
+    b = 1.35
     bri = math.pow((envLx * a), (1 / b))
     bri = math.ceil(bri)
     if envLx < 5:
