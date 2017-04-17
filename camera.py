@@ -21,7 +21,7 @@ while (True):
     print('env brightness: %s' % bri)
 
     # 白天133-170
-    adjust.setBrightness(bri)
+    adjust.setMonitorByCamera(bri)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break

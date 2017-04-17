@@ -54,20 +54,20 @@ def set_vcp_feature(monitor, code, value):
     if not windll.dxva2.SetVCPFeature(HANDLE(monitor), BYTE(code), DWORD(value)):
         raise WinError()
 
-thresholdLevel = [
-    (30, 8, 35), #估计值
-    (170, 15, 50),
-    (250, 25, 50)
-]
-
 BRIGHTNESS = 0x10
 CONTRAST=  0x12
 
 currentValue = None
 
-def setBrightness(envLx):
+def setMonitorByCamera(envLx):
     """输入亮度值，根据阈值设置显示器亮度"""
     global currentValue
+    thresholdLevel = [
+        (30, 8, 35),  # 估计值
+        (170, 15, 50),
+        (250, 25, 50)
+    ]
+
     newValue = None
     for k, b, c in thresholdLevel:
         if envLx < k:
