@@ -102,7 +102,7 @@ def setMonitor(envLx):
         contrast = 50
     newValue = (bri, contrast)
     global currentValue
-    if currentValue != newValue:
+    if currentValue is None or math.fabs(currentValue[0]  - newValue[0]) > 2:
         currentValue = newValue
         for handle in _iter_physical_monitors():
             print('Monitor set: Brightness %s, Contrast %s' % (newValue[0], newValue[1]))

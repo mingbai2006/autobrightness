@@ -16,4 +16,4 @@ while True:
     except serial.serialutil.SerialException as e:
         print(e)
         pass;
-    time.sleep(3) # 串口的报告频率约为0.15s
+    time.sleep(4) # 串口的报告频率约为0.15s
