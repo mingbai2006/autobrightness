@@ -63,7 +63,7 @@ def setMonitorByCamera(envLx):
     """输入亮度值，根据阈值设置显示器亮度"""
     global currentValue
     thresholdLevel = [
-        (30, 8, 35),  # 估计值
+        (31, 5, 35),  # 估计值
         (170, 15, 50),
         (250, 25, 50)
     ]
