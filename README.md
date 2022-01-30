@@ -1,3 +1,7 @@
+Use an external light sensor or camera to adjust the brightness of the computer monitor according to the light intensity
+
+---------------------------------------------------------------
+
 使用光传感器或者摄像头来自动调节显示器亮度和对比度
 
 显示器型号：U2515h
